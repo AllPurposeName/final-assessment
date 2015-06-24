@@ -1,0 +1,13 @@
+<div id="information">
+
+  <%= form_for("information", url:"/information") do |f| %>
+    <% Language.all.where(preferred: false).each do |l| %>
+      <%= f.check_box(l.name, {}) %>
+      <%= f.label(l.name, l.name) %>
+      <br>
+    <% end %>
+    <%= f.text_field("about", {id: "about"}) %>
+    <%= f.label("about", "Tell us about yourself") %>
+    <%= f.submit %>
+  <% end %>
+</div>
