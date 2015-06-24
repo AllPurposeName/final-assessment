@@ -50,4 +50,14 @@ class User < ActiveRecord::Base
   def has_not_rejected?(user)
     !has_rejected?(user)
   end
+
+  def already_interested?(pairing)
+    old_pairing =  pairings.where(pair_id: pairing.user_id).first
+    old_pairing.interested? if old_pairing
+  end
+
+  def matches
+    completed = pairings.where(completed: true)
+    completed.map(&:pair) if completed
+  end
 end

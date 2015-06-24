@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Pairr</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Pairr</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
 
-  <%= render current_user.starting_path %>
+    <div class="container">
+      <% flash.each do |name, msg| %>
+        <div class="card-panel teal lighten-5">
+          <%= content_tag :div, msg, id: "flash_#{name}" %>
+        </div>
+      <% end %>
+    </div>
 
-</body>
+    <%= render current_user.starting_path %>
+
+  </body>
 </html>

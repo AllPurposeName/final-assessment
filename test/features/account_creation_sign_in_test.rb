@@ -13,12 +13,10 @@ class AccountCreationSignInTest < ActiveSupport::TestCase
   end
 
   def test_a_user_can_fill_in_their_information
-    skip
     description = "Hello my name is DJ, I love programming"
     visit "/"
     click_link("Login with GitHub")
 
-    login_user
     within("#information") do
       check("information[JavaScript]")
       check("information[Ruby]")
@@ -29,11 +27,14 @@ class AccountCreationSignInTest < ActiveSupport::TestCase
     click_button("Save Information")
 
     user = User.find_by(name: "AllPurposeName")
-    assert_equal "/", current_path, "it redirects to dashboard/matches"
-    assert_equal "Clojure", user.languages.where(preferred: true).first.name
-    assert_equal "Ruby", user.languages.where(preferred: true).second.name
-    assert_equal "JavaScript", user.languages.where(preferred: true).third.name
-    assert_equal "Rust", user.languages.where(preferred: false).first.name, "Rust was not checked, so it should be in the preferred: false group"
+    preferred_langs     = user.user_languages.where(preferred: true)
+    not_preferred_langs = user.user_languages.where(preferred: false)
+
+    assert_equal "/",          current_path, "it redirects to dashboard/matches"
+    assert_equal "Clojure",    preferred_langs.first.language.name
+    assert_equal "Ruby",       preferred_langs.second.language.name
+    assert_equal "JavaScript", preferred_langs.third.language.name
+    assert_equal "Rust",       not_preferred_langs.first.language.name, "Rust was not checked, so it should be in the preferred: false group"
     assert_equal description,  user.description, "description should also be updated"
   end
 end

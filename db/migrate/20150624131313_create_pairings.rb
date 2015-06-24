@@ -5,6 +5,7 @@ class CreatePairings < ActiveRecord::Migration
       t.references :pair, index: true, foreign_key: true
       t.boolean :paired_before, default: false
       t.boolean :interested, default: false
+      t.boolean :completed, default: false
 
       t.timestamps null: false
     end

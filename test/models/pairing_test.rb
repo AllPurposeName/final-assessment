@@ -14,5 +14,11 @@ class PairingTest < ActiveSupport::TestCase
     pairing.mark_as_interested
     assert pairing.interested
   end
-end
 
+  def test_it_can_be_marked_as_completed
+    pairing = Pairing.create!
+    refute pairing.completed
+    pairing.mark_as_completed
+    assert pairing.completed
+  end
+end

@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150624131313) do
     t.integer  "pair_id"
     t.boolean  "paired_before", default: false
     t.boolean  "interested",    default: false
+    t.boolean  "completed",     default: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end

@@ -43,6 +43,9 @@ class MatchSuggestionTest < ActiveSupport::TestCase
         click_button("Approve!")
       end
     end
+
+    flash = "Congrats #{all_user.name}, you and #{user.name} are a good match!"
+    refute page.has_content?(flash), "a flash message SHOULD NOT appear indicating a completed match"
   end
   def test_it_should_store_approved_pairings
     find_pairs

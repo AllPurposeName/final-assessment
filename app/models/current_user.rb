@@ -12,4 +12,12 @@ class CurrentUser
       "layouts/login_page"
     end
   end
+
+  def matches
+    if user
+      "layouts/matches"
+    else
+      "layouts/empty"
+    end
+  end
 end

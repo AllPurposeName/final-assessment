@@ -12,15 +12,27 @@ class DashboardController < ApplicationController
 
 
   def index
+    @user = current_user.user
   end
 
   def update
     user = current_user.user
-    new_user = user.pairings.where(pair_id: params[:pair_id]).first
-    new_user.mark_as_paired
-    if params[:_method] == "put"
-      new_user.mark_as_interested
+    pairing = user.pairings.where(pair_id: params[:pair_id]).first
+    pairing.mark_as_paired
+    other_user = User.find_by(id: pairing.pair_id)
+    if approve_was_clicked && other_user.already_interested?(pairing)
+      others_pairing = other_user.pairings.where(pair_id: user.id).first
+      pairing.mark_as_completed
+      others_pairing.mark_as_completed
+      flash[:notice] = "Congrats #{user.name}, you and #{other_user.name} are a good match!"
+    elsif approve_was_clicked
+      pairing.mark_as_interested
+    else
     end
     redirect_to :back
+  end
+
+  def approve_was_clicked
+    params[:_method] == "put"
   end
 end

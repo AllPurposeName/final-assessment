@@ -1,6 +1,6 @@
 require "test_helper"
 
-class MatchSuggestionTest < ActiveSupport::TestCase
+class BetterMatchSuggestionTest < ActiveSupport::TestCase
 
   def test_it_shows_pending_users_first
     simply_log_in

@@ -9,4 +9,8 @@ class Pairing < ActiveRecord::Base
   def mark_as_interested
     update(interested: true)
   end
+
+  def mark_as_completed
+    update(completed: true)
+  end
 end
