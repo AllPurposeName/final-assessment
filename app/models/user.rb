@@ -22,13 +22,32 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.all_except(user)
+    User.all - [user]
+  end
+
   def associate_languages(langs)
     langs.each do |lang, bool|
-      if bool.zero?
-      languages << Language.find_or_create_by(name: lang)
+      if !bool.zero?
+        lang_id = Language.find_by(name: lang).id
+        user_lang = user_languages.where(language_id: lang_id, user_id: id).first
+        if user_lang
+          user_lang.mark_as_preferred
+        end
       else
-      languages << Language.find_or_create_by(name: lang, preferred: true)
       end
     end
+  end
+
+  def preferred_languages
+    user_languages.where(preferred: true).map(&:language)
+  end
+
+  def has_rejected?(user)
+    pairings.where(pair_id: user.id).first.paired_before?
+  end
+
+  def has_not_rejected?(user)
+    !has_rejected?(user)
   end
 end

@@ -1,7 +1,7 @@
 <div id="information">
 
   <%= form_for("information", url:"/information") do |f| %>
-    <% Language.all.where(preferred: false).each do |l| %>
+    <% Language.all.each do |l| %>
       <%= f.check_box(l.name, {}) %>
       <%= f.label(l.name, l.name) %>
       <br>

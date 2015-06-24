@@ -13,11 +13,12 @@ class AccountCreationSignInTest < ActiveSupport::TestCase
   end
 
   def test_a_user_can_fill_in_their_information
+    skip
     description = "Hello my name is DJ, I love programming"
-    login_user
     visit "/"
     click_link("Login with GitHub")
 
+    login_user
     within("#information") do
       check("information[JavaScript]")
       check("information[Ruby]")

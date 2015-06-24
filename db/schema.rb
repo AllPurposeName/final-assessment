@@ -15,9 +15,8 @@ ActiveRecord::Schema.define(version: 20150624131313) do
 
   create_table "languages", force: :cascade do |t|
     t.string   "name"
-    t.boolean  "preferred",  default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pairings", force: :cascade do |t|
@@ -37,9 +36,10 @@ ActiveRecord::Schema.define(version: 20150624131313) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_languages", id: false, force: :cascade do |t|
+  create_table "user_languages", force: :cascade do |t|
     t.integer "user_id"
     t.integer "language_id"
+    t.boolean "preferred",   default: false
   end
 
   add_index "user_languages", ["language_id"], name: "index_user_languages_on_language_id"

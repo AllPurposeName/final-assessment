@@ -1,10 +1,17 @@
-
-User's github name: <%= @new_user.name %>
-User's description: <%= @new_user.description %>
-User's github profile pic: <%= @new_user.avatar_url %>
-User's list of desired languages: <% @new_user.languages.where(preferred: true).each do |lang| %>
-  <%= langname %>
-<% end %>
+<div id="name">
+  User's github name: <%= @new_user.name %><br>
+</div>
+<div id="description">
+  User's description: <%= @new_user.description %><br>
+</div>
+<div id="avatar_url">
+  User's github profile pic: <%= image_tag @new_user.avatar_url %><br>
+</div>
+<div id="langs">
+  User's list of desired languages: <% @new_user.preferred_languages.each do |lang| %>
+    <%= lang.name %><br>
+  <% end %>
+</div>
 
 <div class="buttons">
   <%= button_to "Approve!", dashboard_path(pair_id: @new_user.id) , method: :put %>

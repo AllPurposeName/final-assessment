@@ -2601,5 +2601,10 @@ end
   "description": "would love to get your help on my new startup; it's in stealth mode so we can only use 1-character variable names, but it will be fun"
 }
 ].each do |user_json|
-  User.find_or_create_with_oauth(user_json)
+  user = User.find_or_create_with_oauth(user_json)
+  user.associate_languages(user_json[:languages])
+end
+
+User.all.each do |user|
+  user.pairs << User.all
 end

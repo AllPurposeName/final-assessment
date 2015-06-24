@@ -1,7 +1,12 @@
 class DashboardController < ApplicationController
   def show
     user = current_user.user
-    @new_user = user.pairings.where(paired_before: false).first.pair
+    new_user = User.all_except(user).find { |u| u.pairings.where(interested: true).first && user.has_not_rejected?(u) }
+    if new_user
+      @new_user = new_user
+    else
+      @new_user = user.pairings.where(paired_before: false).first.pair
+    end
     render :show
   end
 

@@ -1,0 +1,7 @@
+one:
+  user_id: 1
+  pair_id: 2
+
+two:
+  user_id: 2
+  pair_id: 1

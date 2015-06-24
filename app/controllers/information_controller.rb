@@ -4,7 +4,8 @@ class InformationController < ApplicationController
 
   def create
     user = current_user.user
-    user.languages.where(name: parse_params.keys).update_all(preferred: true)
+    lang_ids = params[:information].keys[0..-2].map { |k, v| Language.find_by(name: k).id  }
+    user.user_languages.where(language_id: lang_ids).update_all(preferred: true)
     user.update!(description: params[:information][:about])
     redirect_to root_path
   end
