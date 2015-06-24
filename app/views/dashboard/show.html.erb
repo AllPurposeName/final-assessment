@@ -1,0 +1,13 @@
+
+User's github name: <%= @new_user.name %>
+User's description: <%= @new_user.description %>
+User's github profile pic: <%= @new_user.avatar_url %>
+User's list of desired languages: <% @new_user.languages.where(preferred: true).each do |lang| %>
+  <%= langname %>
+<% end %>
+
+<div class="buttons">
+  <%= button_to "Approve!", dashboard_path(pair_id: @new_user.id) , method: :put %>
+  <%= button_to "Reject!", dashboard_path(pair_id: @new_user.id) , method: :patch  %>
+
+</div>

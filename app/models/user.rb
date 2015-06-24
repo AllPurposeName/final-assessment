@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :pairings
+  has_many :pairs, through: :pairings, class_name: "User"
   has_many :user_languages
   has_many :languages, through: :user_languages
 
@@ -15,6 +17,7 @@ class User < ActiveRecord::Base
     user.save
 
     user.languages << Language.all
+    user.pairs << User.all
     user
     end
   end

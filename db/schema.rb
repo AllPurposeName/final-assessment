@@ -11,13 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150623195811) do
+ActiveRecord::Schema.define(version: 20150624131313) do
 
   create_table "languages", force: :cascade do |t|
     t.string   "name"
     t.boolean  "preferred",  default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+  end
+
+  create_table "pairings", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "pair_id"
+    t.boolean  "paired_before", default: false
+    t.boolean  "interested",    default: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "pairings", ["pair_id"], name: "index_pairings_on_pair_id"
+  add_index "pairings", ["user_id"], name: "index_pairings_on_user_id"
+
+  create_table "pairs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_languages", id: false, force: :cascade do |t|

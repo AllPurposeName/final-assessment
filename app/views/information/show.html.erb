@@ -6,8 +6,11 @@
       <%= f.label(l.name, l.name) %>
       <br>
     <% end %>
-    <%= f.text_field("about", {id: "about"}) %>
     <%= f.label("about", "Tell us about yourself") %>
-    <%= f.submit %>
-  <% end %>
-</div>
+    <%= f.text_field("about", {id: "about",
+                     maxlength: 500,
+                     size: 75,
+                     placeholder: "Favorite text editor, tdd, dsa, wut"}) %>
+                     <%= f.submit %>
+                   <% end %>
+                 </div>

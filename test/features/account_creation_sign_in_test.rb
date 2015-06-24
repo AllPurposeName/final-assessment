@@ -9,7 +9,7 @@ class AccountCreationSignInTest < ActiveSupport::TestCase
       click_link("Login with GitHub")
     end
 
-    assert_equal "/", current_path, "login redirect leads to dashboard"
+    assert_equal "/information", current_path, "login redirect leads to information page"
   end
 
   def test_a_user_can_fill_in_their_information
@@ -17,7 +17,6 @@ class AccountCreationSignInTest < ActiveSupport::TestCase
     login_user
     visit "/"
     click_link("Login with GitHub")
-    visit "/information"
 
     within("#information") do
       check("information[JavaScript]")

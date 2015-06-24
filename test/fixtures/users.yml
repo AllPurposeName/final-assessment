@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  description: MyText
-  name: MyString
-  avatar_url: MyString
-  html_url: MyString
+  description: Breaded Beast
+  name: Horace
+  avatar_url: https://avatars.githubusercontent.com/u/1227440?v=3
+  html_url: https://github.com/worace
 
 two:
-  description: MyText
-  name: MyString
-  avatar_url: MyString
-  html_url: MyString
+  description: would love to get your help on my new startup.
+  name: jcasimir
+  avatar_url: https://avatars.githubusercontent.com/u/43102?v=3
+  html_url: https://github.com/jcasimir
