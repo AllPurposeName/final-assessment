@@ -4,10 +4,9 @@ class BetterMatchSuggestionTest < ActiveSupport::TestCase
 
   def test_it_shows_pending_users_first
     simply_log_in
-    all_user = User.find_by(name: "AllPurposeName")
-    user = User.find_by(name: "worace")
-    user.pairs << User.all
-    user.pairings.where(pair_id: all_user.id).first.mark_as_interested
+    me = User.find_by(name: "AllPurposeName")
+    user     = User.find_by(name: "worace")
+    Pairing.for(user, me).like.save!
     user.save
     fill_in_description
     click_link("Find Pairs!")

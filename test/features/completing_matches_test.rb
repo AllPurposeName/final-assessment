@@ -4,16 +4,14 @@ class CompletingMatchTest < ActiveSupport::TestCase
 
   def test_it_indicates_when_a_match_has_been_completed
     simply_log_in
-    all_user = User.find_by(name: "AllPurposeName")
+    me = User.find_by(name: "AllPurposeName")
     user = User.find_by(name: "worace")
-    user.pairs << User.all
-    user.pairings.where(pair_id: all_user.id).first.mark_as_interested
-    user.save
+    Pairing.for(user, me).like.save!
     fill_in_description
     click_link("Find Pairs!")
     click_button("Approve!")
 
-    flash = "Congrats #{all_user.name}, you and #{user.name} are a good match!"
+    flash = "Congrats #{me.name}, you and #{user.name} are a good match!"
     assert page.has_content?(flash), "a flash message should appear with a congratulations"
   end
 
@@ -21,11 +19,9 @@ class CompletingMatchTest < ActiveSupport::TestCase
     visit "/"
     click_link("Login with GitHub")
     fill_in_description
-    all_user = User.find_by(name: "AllPurposeName")
+    me = User.find_by(name: "AllPurposeName")
     user = User.find_by(name: "worace")
-    user.pairs << User.all
-    user.pairings.where(pair_id: all_user.id).first.mark_as_completed
-    all_user.pairings.where(pair_id: user.id).first.mark_as_completed
+    Pairing.for(user, me).like.like.save!
 
     visit '/'
 

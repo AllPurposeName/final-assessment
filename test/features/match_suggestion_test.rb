@@ -37,9 +37,8 @@ class MatchSuggestionTest < ActiveSupport::TestCase
     find_pairs
     user = User.find_by(name: "AllPurposeName")
 
-
-    assert_difference("user.pairings.where(paired_before: true).count", 1) do
-      assert_difference("user.pairings.where(paired_before: false).count", -1) do
+    assert_difference("Pairings.count", 1) do
+      assert_difference("Pairings.secret_admirers.count", 1) do
         click_button("Approve!")
       end
     end
@@ -47,25 +46,16 @@ class MatchSuggestionTest < ActiveSupport::TestCase
     flash = "Congrats #{all_user.name}, you and #{user.name} are a good match!"
     refute page.has_content?(flash), "a flash message SHOULD NOT appear indicating a completed match"
   end
+
   def test_it_should_store_approved_pairings
     find_pairs
     user = User.find_by(name: "AllPurposeName")
 
-    assert_difference("user.pairings.where(paired_before: true).count", 1) do
-      assert_difference("user.pairings.where(paired_before: false).count", -1) do
+    assert_difference("Pairing.count", 1) do
+      assert_difference("Pairing.secret_detractors.count", 1) do
         click_button("Reject!")
       end
     end
-  end
-
-  def test_it_marks_pair_as_interested_when_approved
-    find_pairs
-    user = User.find_by(name: "AllPurposeName")
-
-
-    assert_difference("user.pairings.where(interested: true).count", 1) do
-        click_button("Approve!")
-      end
   end
 
   def find_pairs

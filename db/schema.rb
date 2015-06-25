@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624131313) do
+ActiveRecord::Schema.define(version: 20150625163747) do
 
   create_table "languages", force: :cascade do |t|
     t.string   "name"
@@ -22,11 +22,9 @@ ActiveRecord::Schema.define(version: 20150624131313) do
   create_table "pairings", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "pair_id"
-    t.boolean  "paired_before", default: false
-    t.boolean  "interested",    default: false
-    t.boolean  "completed",     default: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "state"
   end
 
   add_index "pairings", ["pair_id"], name: "index_pairings_on_pair_id"

@@ -1,10 +1,19 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
+  def test_its_secret_admirers
+    # is any pairing where state is secret_admirer and pair_id is the user
+    User.transaction do
+      me, p1, p2, p3 = User.create!, User.create!, User.create!, User.create!
+      Pairing.create! user: me, pair: p1, state: 'secret_admirer'
+      Pairing.create! user: p2, pair: me, state: 'secret_admirer'
+      Pairing.create! user: me, pair: p3, state: 'infinite_potential'
+      assert_equal [p2], me.secret_admirers
+    end
+  end
 
   def test_it_can_grab_all_users_minus_one
     collection = User.all_except(User.first)
-
     refute collection.include?(User.first)
   end
 
@@ -31,21 +40,12 @@ class UserTest < ActiveSupport::TestCase
       user.languages << Language.all
       user.associate_languages(languages)
 
-      assert_equal "Rust", user.user_languages.where(preferred: true).first.language.name
-      assert_equal "JavaScript",          user.user_languages.where(preferred: true).second.language.name
-      assert_equal "Clojure",       user.user_languages.where(preferred: false).first.language.name
+      assert_equal "Rust",       user.user_languages.where(preferred: true).first.language.name
+      assert_equal "JavaScript", user.user_languages.where(preferred: true).second.language.name
+      assert_equal "Clojure",    user.user_languages.where(preferred: false).first.language.name
       assert_equal "Ruby",       user.user_languages.where(preferred: false).second.language.name
   end
 
-  def test_it_can_tell_if_it_has_rejected_a_user
-    refute User.first.has_rejected?(User.second)
-    assert User.first.has_not_rejected?(User.second)
-
-    User.first.pairings.first.mark_as_paired
-
-    assert User.first.has_rejected?(User.second)
-    refute User.first.has_not_rejected?(User.second)
-  end
 
   def test_it_can_grab_its_preferred_languages
     user = User.first
@@ -57,25 +57,11 @@ class UserTest < ActiveSupport::TestCase
   end
 
   def test_it_grabs_its_matches
-    user = User.first
+    user  = User.first
     user2 = User.second
-    user.pairings.where(pair_id: user2.id).first
-    .mark_as_completed
-    user2.pairings.where(pair_id: user.id).first
-    .mark_as_completed
+    Pairing.for(user, user2).like.like.save!
 
     assert_equal user2, user.matches.first
     assert_equal user,  user2.matches.first
-  end
-
-  def test_it_can_tell_when_already_interested_in_a_pairing
-    user = User.first
-    user2 = User.second
-    user.pairings.where(pair_id: user2.id).first
-    .mark_as_interested
-
-    pairing = user2.pairings.where(pair_id: user.id).first
-
-    assert user.already_interested?(pairing)
   end
 end
