@@ -1,13 +1,15 @@
-== README
-
 # Final Scores
 
 ####I completed this project with the following scores out of 4:
 
 Satisfatory Progress 3
+
 Ruby Syntax and Style 3
+
 Rails Style and API 3
+
 Testing 3.5
+
 User Interface 3
 
 ## Project Iterations
