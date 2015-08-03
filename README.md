@@ -1,14 +1,14 @@
 == README
 
-Schema:
+# Final Scores
 
-User
-has_many user_languages
-has_many languages through user_languages
+####I completed this project with the following scores out of 4:
 
-attr id
-attr githubname
-attr description
+Satisfatory Progress 3
+Ruby Syntax and Style 3
+Rails Style and API 3
+Testing 3.5
+User Interface 3
 
 ## Project Iterations
 
