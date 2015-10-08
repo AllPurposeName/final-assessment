@@ -31,10 +31,10 @@ class UserTest < ActiveSupport::TestCase
       user.languages << Language.all
       user.associate_languages(languages)
 
-      assert_equal "Rust", user.user_languages.where(preferred: true).first.language.name
-      assert_equal "JavaScript",          user.user_languages.where(preferred: true).second.language.name
-      assert_equal "Clojure",       user.user_languages.where(preferred: false).first.language.name
-      assert_equal "Ruby",       user.user_languages.where(preferred: false).second.language.name
+      assert_equal "JavaScript",    user.user_languages.where(preferred: true).first.language.name
+      assert_equal "Rust",          user.user_languages.where(preferred: true).second.language.name
+      assert_equal "Ruby",          user.user_languages.where(preferred: false).first.language.name
+      assert_equal "Clojure",       user.user_languages.where(preferred: false).second.language.name
   end
 
   def test_it_can_tell_if_it_has_rejected_a_user

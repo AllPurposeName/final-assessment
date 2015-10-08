@@ -31,9 +31,9 @@ class AccountCreationSignInTest < ActiveSupport::TestCase
     not_preferred_langs = user.user_languages.where(preferred: false)
 
     assert_equal "/",          current_path, "it redirects to dashboard/matches"
-    assert_equal "Clojure",    preferred_langs.first.language.name
+    assert_equal "JavaScript",    preferred_langs.first.language.name
     assert_equal "Ruby",       preferred_langs.second.language.name
-    assert_equal "JavaScript", preferred_langs.third.language.name
+    assert_equal "Clojure", preferred_langs.third.language.name
     assert_equal "Rust",       not_preferred_langs.first.language.name, "Rust was not checked, so it should be in the preferred: false group"
     assert_equal description,  user.description, "description should also be updated"
   end

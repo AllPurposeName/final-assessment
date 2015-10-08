@@ -21,7 +21,7 @@ class BetterMatchSuggestionTest < ActiveSupport::TestCase
     find_pairs
 
     within("#name") do
-      assert page.has_content?("jcasimir"), "jcasimir should happen before worace"
+      assert page.has_content?("worace"), "worace should happen before jcasimir"
     end
   end
 
