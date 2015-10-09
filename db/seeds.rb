@@ -24,7 +24,7 @@ languages = [
 ]
 
 languages.each do |lang|
-  Language.create(name :lang)
+  Language.create(name: lang)
 end
 [
   {
@@ -2602,7 +2602,7 @@ end
 }
 ].each do |user_json|
   user = User.find_or_create_with_oauth(user_json)
-  user.associate_languages(user_json[:languages])
+  user.associate_languages(user_json[ :languages])
 end
 
 User.all.each do |user|
